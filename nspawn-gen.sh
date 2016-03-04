@@ -61,3 +61,6 @@ SuccessExitStatus=133
 [Install]
 WantedBy=multi-user.target
 EOF
+
+echo "Creating hostname file"
+echo $NAME > $FULL_PATH/etc/hostname
