@@ -7,6 +7,7 @@ CONTAINER_DIR=/var/lib/container/
 FULL_PATH=$CONTAINER_DIR/$NAME/
 DEBOOTSTRAP_SCRIPTS=/usr/share/debootstrap/scripts/
 NETIF=eth1
+PACKAGES="dbus"
 
 # Container specific values
 MACADDR=$(echo $NAME | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\1:\2:\3:\4:\5/')
@@ -28,7 +29,7 @@ fi
 
 
 echo "Beginning to bootstrap $1 to $FULL_PATH."
-/usr/sbin/debootstrap $1 $FULL_PATH
+/usr/sbin/debootstrap --include $PACKAGES $1 $FULL_PATH
 echo "Symlinking resolvconf"
 ln -sf $FULL_PATH/run/systemd/resolve/resolv.conf $FULL_PATH/etc/resolv.conf
 echo "Creating $FULL_PATH/etc/systemd/network/mv-$NETIF.network"
