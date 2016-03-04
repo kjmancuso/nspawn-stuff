@@ -7,6 +7,8 @@ CONTAINER_DIR=/var/lib/container/
 FULL_PATH=$CONTAINER_DIR/$NAME/
 DEBOOTSTRAP_SCRIPTS=/usr/share/debootstrap/scripts/
 NETIF=eth1
+# dbus required to avoid error below when attempting machinectl login
+# Failed to get container bus: Input/output error
 PACKAGES="dbus"
 
 # Container specific values
@@ -65,3 +67,6 @@ EOF
 
 echo "Creating hostname file"
 echo $NAME > $FULL_PATH/etc/hostname
+
+echo "Adding pts/0 to securetty"
+echo "pts/0" >> $FULL_PATH/etc/securetty
